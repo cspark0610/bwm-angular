@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import "colors";
+
+html,
+body {
+  height: 100%;
+}
+
+html,
+body,
+p {
+  color: $dark-grey-color;
+}
+
+.bwm-list-page {
+  .title {
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,9 @@
+<div class="bwm-list-page">
+  <h1>Your Home all around the World</h1>
+
+  <div class="row">
+    <div class="col-md-3 col-xs-6" *ngFor="let rental of rentals">
+      <bwm-rental-card [rental]="rental"> </bwm-rental-card>
+    </div>
+  </div>
+</div>
