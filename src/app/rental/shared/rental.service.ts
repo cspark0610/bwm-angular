@@ -51,7 +51,7 @@ export class RentalService {
       title: 'Madrid Central Apartment 4',
       city: 'Madrid',
       street: 'Times Sqaure',
-      category: 'apartment',
+      category: 'house',
       image: 'http://via.placeholder.com/300x200',
       numOfRooms: 3,
       description: 'Very nice apartment',

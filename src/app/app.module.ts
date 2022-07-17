@@ -6,9 +6,11 @@ import { AppComponent } from './app.component';
 import { RentalModule } from './rental/rental.module';
 // components
 import { HeaderComponent } from './shared/header/header.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [AppComponent, HeaderComponent, LoginComponent, RegisterComponent],
   imports: [BrowserModule, AppRoutingModule, RentalModule],
   providers: [],
   bootstrap: [AppComponent],

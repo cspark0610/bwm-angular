@@ -19,7 +19,9 @@
             {{ rental.shared ? "Shared" : "Whole" }} {{ rental.category }}
           </h2>
           <!-- Display title -->
-          <h1 bwmHighlight class="rental-title">{{ rental.title }}</h1>
+          <h1 [bwmHighlight]="'transparent'" class="rental-title">
+            {{ rental.title }}
+          </h1>
           <!-- Display city -->
           <h2 class="rental-city">{{ rental.city | firstUpperLetter }}</h2>
           <div class="rental-room-info">
