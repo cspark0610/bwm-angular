@@ -43,3 +43,29 @@ Content-Type: application/json
 ###
 DELETE {{endpoint}}/rentals/62d54ae6dbdf2d3a3d5e4fb7
 
+### USERS ROUTES
+
+POST {{endpoint}}/users/login
+Content-Type: application/json
+
+{
+  "email": "matias@gmail.com",
+  "password": "123456"
+}
+
+# {
+#   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmQ1YWNjYmE3MjQ0NzhkMDk1YTNmMWIiLCJ1c2VybmFtZSI6Ik1hdGlhcyIsImlhdCI6MTY1ODE3MTg0MiwiZXhwIjoxNjU4MjU4MjQyfQ.BLNpiEqlkGmqwV4eJ6MbcMM94qGxYYzVr3oVnfpdiHM"
+# }
+
+###
+POST {{endpoint}}/users/register
+Content-Type: application/json
+
+{
+  "username": "Matias",
+  "email": "matias@gmail.com",
+  "password": "123456",
+  "passwordConfirmation": "123456"
+}
+
+###

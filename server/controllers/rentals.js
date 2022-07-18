@@ -1,4 +1,3 @@
-const rental = require("../models/rental");
 const Rental = require("../models/rental");
 
 exports.getRentals = (req, res) => {

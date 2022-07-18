@@ -2,11 +2,10 @@ import { Directive, Input } from '@angular/core';
 import {
   NG_VALIDATORS,
   Validator,
-  AbstractControl,
   FormGroup,
   ValidationErrors,
 } from '@angular/forms';
-import { forbiddenEmailValidator, sameAsValidator } from './functions';
+import { sameAsValidator } from './functions';
 
 @Directive({
   selector: '[sameAs]',
@@ -14,6 +13,10 @@ import { forbiddenEmailValidator, sameAsValidator } from './functions';
     {
       provide: NG_VALIDATORS,
       useExisting: SameAsDirective,
+      /**
+       * When multi=true, injector returns an array of instances. This is useful to allow multiple
+       * providers spread across many files to provide configuration information to a common token.
+       */
       multi: true,
     },
   ],
