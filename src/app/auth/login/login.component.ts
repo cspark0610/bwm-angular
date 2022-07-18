@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+//import { sameAsValidator } from '../../shared/validators/functions';
 import {
   AbstractControl,
   FormBuilder,
@@ -22,10 +23,19 @@ export class LoginComponent implements OnInit {
   }
 
   initForm() {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
+    this.loginForm = this.formBuilder.group(
+      {
+        email: [
+          '',
+          [Validators.required, Validators.pattern(this.emailPattern)],
+        ],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+      }
+      // si quisieramos usar el sameAsValidator, debemos agregarlo al formBuilder
+      // {
+      //   validators: [sameAsValidator(['password', 'email'])],
+      // }
+    );
   }
 
   login() {

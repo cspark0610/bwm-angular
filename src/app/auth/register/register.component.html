@@ -6,7 +6,10 @@
         <!-- FormsModule in app.module -->
         <!-- #registerForm creo una referencia del estado del from con ngForm -->
         <!-- creo una referencia del valor del input ingresado #username con ngModel -->
-        <form #registerForm="ngForm">
+        <form
+          #registerForm="ngForm"
+          [sameAs]="['password', 'passwordConfirmation']"
+        >
           <div class="form-group">
             <label for="username">Username</label>
             <input
@@ -38,6 +41,7 @@
             <input
               [(ngModel)]="registerFormData.email"
               #email="ngModel"
+              [forbiddenEmail]="'some@email.com'"
               name="email"
               required
               [pattern]="emailPattern"
@@ -52,6 +56,9 @@
               <div *ngIf="email.errors?.['required']">Email is required.</div>
               <div *ngIf="email.errors?.['pattern']">
                 Email formatt is not valid.
+              </div>
+              <div *ngIf="email.errors?.['forbiddenEmail']">
+                Provided email is not Allowed!
               </div>
             </div>
           </div>
@@ -106,6 +113,12 @@
               <div *ngIf="passwordConfirmation.errors?.['minlength']">
                 Password Confirmation must be at least 6 characters long
               </div>
+            </div>
+            <div
+              *ngIf="registerForm.errors?.['sameAs']"
+              class="alert alert-danger"
+            >
+              Password confirmation must be as same as password.
             </div>
           </div>
           <button
