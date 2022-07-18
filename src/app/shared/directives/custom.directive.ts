@@ -6,7 +6,6 @@ import {
   ViewContainerRef,
   TemplateRef,
   OnChanges,
-  SimpleChanges,
 } from '@angular/core';
 
 @Directive({
@@ -46,7 +45,7 @@ export class BwmNgIfDirective {
 }
 
 @Directive({
-  // tendro de la etiqueta se usa *bwmNgFor
+  // dentro de la etiqueta se usa *bwmNgFor
   selector: '[bwmNgFor]',
 })
 export class BwmNgForDirective implements OnChanges {

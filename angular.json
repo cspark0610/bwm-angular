@@ -79,7 +79,8 @@
               "browserTarget": "bwm-angular:build:production"
             },
             "development": {
-              "browserTarget": "bwm-angular:build:development"
+              "browserTarget": "bwm-angular:build:development",
+              "proxyConfig": "proxy.config.json"
             }
           },
           "defaultConfiguration": "development"

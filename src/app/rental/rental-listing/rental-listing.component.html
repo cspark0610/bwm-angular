@@ -5,9 +5,9 @@
     <div class="col-md-3 col-xs-6" *ngFor="let rental of rentals">
       <bwm-rental-card [rental]="rental"> </bwm-rental-card>
 
-      <div *bwmNgIf="rental.category === 'house'">
+      <!-- <div *bwmNgIf="rental.category === 'house'">
         <h1>im a house</h1>
-      </div>
+      </div> -->
 
       <!-- custom ngIf directives 
         using *bwmNgIf trannsforms like this 

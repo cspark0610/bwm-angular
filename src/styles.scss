@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "colors";
+@import "forms";
 
 html,
 body {
@@ -17,5 +18,26 @@ p {
     margin-bottom: 20px;
     font-size: 30px;
     font-weight: bold;
+  }
+}
+
+.btn.bwm-btn-main {
+  border-color: $dark-red-color;
+  color: $dark-red-color;
+  margin-top: 20px;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $dark-red-color;
+    border-color: $dark-red-color;
+    color: white;
+    box-shadow: none;
+  }
+
+  &:disabled {
+    cursor: auto;
+    background-color: transparent;
+    color: $dark-red-color;
   }
 }

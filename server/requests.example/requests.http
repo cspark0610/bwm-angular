@@ -1,0 +1,45 @@
+
+@endpoint = http://localhost:4001/api/v1
+
+GET {{endpoint}}/rentals
+
+###
+GET {{endpoint}}/rentals/62d54eabd5175ab4871a11
+
+###
+POST {{endpoint}}/rentals
+Content-Type: application/json
+
+{
+  "title": "Modern apartment in center 333",
+  "city": "Madrid",
+  "street": "calle falsa 123",
+  "category": "apartmento",
+  "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
+  "numOfRooms": 3,
+  "description": "Very nice apartment in center of the city.",
+  "dailyPrice": 11,
+  "shared": false, 
+  "createdAt": "2021-05-06"
+}
+
+###
+PUT {{endpoint}}/rentals/62d480e246cf894816668ffe
+Content-Type: application/json
+
+{
+  "title": "Depertamento moderno en el centro",
+  "city": "Madrid",
+  "street": "calle falsa 123",
+  "category": "departamento",
+  "image": "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
+  "numOfRooms": 1,
+  "description": "Very nice apartment in center of the city.",
+  "dailyPrice": 13,
+  "shared": true, 
+  "createdAt": "2021-06-06"
+}
+
+###
+DELETE {{endpoint}}/rentals/62d54ae6dbdf2d3a3d5e4fb7
+
