@@ -19,6 +19,7 @@ const rentalSchema = new Schema({
   numOfRooms: { type: Number, required: true },
   description: { type: String, required: true },
   dailyPrice: { type: Number, required: true },
+  owner: { type: Schema.Types.ObjectId, ref: "User" },
   shared: Boolean,
   createdAt: { type: Date, default: Date.now },
 });

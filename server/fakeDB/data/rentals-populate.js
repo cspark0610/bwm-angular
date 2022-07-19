@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const rentals = [
   {
     title: "Nice view on ocean",
@@ -10,6 +12,7 @@ const rentals = [
     shared: true,
     description: "Very nice apartment in center of the city.",
     dailyPrice: 43,
+    owner: mongoose.Types.ObjectId(),
   },
   {
     title: "Modern apartment in center",
@@ -22,6 +25,7 @@ const rentals = [
     shared: false,
     description: "Very nice apartment in center of the city.",
     dailyPrice: 11,
+    owner: mongoose.Types.ObjectId(),
   },
   {
     title: "Old house in nature",
@@ -34,6 +38,7 @@ const rentals = [
     shared: true,
     description: "Very nice apartment in center of the city.",
     dailyPrice: 23,
+    owner: mongoose.Types.ObjectId(),
   },
 ];
 

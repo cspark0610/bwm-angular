@@ -1,6 +1,6 @@
 
 @endpoint=http://localhost:4001/api/v1
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmQ2YTM2MjFhNGU2MDE2MWU2Zjc4NmEiLCJ1c2VybmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTY1ODIzNTM1OSwiZXhwIjoxNjU4MzIxNzU5fQ.S8CBBG5tcZfvYMp_xu8xHl21sxoUrP6AWe81qQvfEDU
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmQ3MDZkNjA5MjQxODczYWU0MTk1ZmEiLCJ1c2VybmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTY1ODI1OTM0NywiZXhwIjoxNjU4MzQ1NzQ3fQ.LgEgMCdLHPBikQztKsLL1jhnIUJcIGI1mzVDqEe7KDY
 
 
 
@@ -81,5 +81,14 @@ Authorization: Bearer {{token}}
 
 POST {{endpoint}}/bookings
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
-###
+{
+  "startAt": "2021-05-06",
+  "endAt": "2021-05-11",
+  "price": 1500,
+  "nights": 5,
+  "guests": 2,
+  "user": "62d706d609241873ae4195fb",
+  "rental": "62d706d609241873ae4195f5"
+}
