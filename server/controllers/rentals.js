@@ -1,6 +1,7 @@
 const Rental = require("../models/rental");
 
 exports.getRentals = (req, res) => {
+  console.log(req.headers, "aca");
   Rental.find({}, (error, rentals) => {
     if (error) return res.mongoError(error);
     res.json(rentals);

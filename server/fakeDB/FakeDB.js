@@ -1,18 +1,19 @@
 const rentals = require("./data/rentals-populate");
+const users = require("./data/users-populate");
 const Rental = require("../models/rental");
+const User = require("../models/user");
 
 class FakeDB {
-  clean() {
-    return Rental.deleteMany({});
+  async clean() {
+    return Promise.all([Rental.deleteMany({}), User.deleteMany({})]);
   }
 
-  addData() {
-    return Rental.create(rentals);
+  async addData() {
+    return Promise.all([Rental.create(rentals), User.create(users)]);
   }
 
   async populate() {
-    await this.clean();
-    await this.addData();
+    return Promise.all([this.clean(), this.addData()]);
   }
 }
 

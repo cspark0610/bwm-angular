@@ -1,7 +1,12 @@
 
-@endpoint = http://localhost:4001/api/v1
+@endpoint=http://localhost:4001/api/v1
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmQ2YTM2MjFhNGU2MDE2MWU2Zjc4NmEiLCJ1c2VybmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTY1ODIzNTM1OSwiZXhwIjoxNjU4MzIxNzU5fQ.S8CBBG5tcZfvYMp_xu8xHl21sxoUrP6AWe81qQvfEDU
 
+
+
+###
 GET {{endpoint}}/rentals
+
 
 ###
 GET {{endpoint}}/rentals/62d54eabd5175ab4871a11
@@ -49,8 +54,8 @@ POST {{endpoint}}/users/login
 Content-Type: application/json
 
 {
-  "email": "matias@gmail.com",
-  "password": "123456"
+  "email": "test@gmail.com",
+  "password": "testtest"
 }
 
 # {
@@ -68,4 +73,6 @@ Content-Type: application/json
   "passwordConfirmation": "123456"
 }
 
-###
+### secret protected route
+GET {{endpoint}}/secret
+Authorization: Bearer {{token}}

@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
+const config = require("../config/dev");
 
 function parseToken(token) {
   try {
@@ -11,7 +12,7 @@ function parseToken(token) {
 }
 
 function notAuthorized(res) {
-  return res.status(401).send({
+  return res.json({
     errors: [
       {
         title: "Not Authorized!",
@@ -27,16 +28,18 @@ exports.onlyAuthUser = (req, res, next) => {
   if (token) {
     const { decodedToken, error } = parseToken(token);
     if (error) {
-      return res.status(422).send({ error });
+      return res.status(422).json({ error });
     }
 
     User.findById(decodedToken.sub, (error, foundUser) => {
       if (error) {
-        return res.status(422).send({
+        return res.status(422).json({
           message: "Not found user with id: " + decodedToken.sub,
         });
       }
-      if (!foundUser) return notAuthorized(res);
+      if (!foundUser) {
+        return notAuthorized(res);
+      }
 
       res.locals.user = foundUser;
       next();
