@@ -2,11 +2,7 @@ const Rental = require("../models/rental");
 
 exports.getRentals = (req, res) => {
   Rental.find({}, (error, rentals) => {
-    if (error)
-      return Rental.sendError(res, {
-        status: 422,
-        detail: "Error retreaving all rentals",
-      });
+    if (error) return res.mongoError(error);
     res.json(rentals);
   });
 };
@@ -14,11 +10,7 @@ exports.getRentals = (req, res) => {
 exports.getRentalById = (req, res) => {
   const { id } = req.params;
   Rental.findById(id, (error, rental) => {
-    if (error)
-      return Rental.sendError(res, {
-        status: 422,
-        detail: `Error retreaving rental with id: ${id}`,
-      });
+    if (error) return res.mongoError(error);
     res.json(rental);
   });
 };
@@ -37,11 +29,7 @@ exports.createRental = (req, res) => {
 
   // 2) agregar usar directamente el .create()
   Rental.create(body, (error, rental) => {
-    if (error)
-      return Rental.sendError(res, {
-        status: 422,
-        detail: "Error creating rental",
-      });
+    if (error) return res.mongoError(error);
     res.json({
       message: `Rental with id: ${rental._id} created successfully`,
     });
@@ -54,11 +42,7 @@ exports.deleteRental = (req, res) => {
   // rentals.splice(rIndex, 1);
 
   Rental.findByIdAndRemove(id, (error, rental) => {
-    if (error)
-      return Rental.sendError(res, {
-        status: 422,
-        detail: `Error deleating rental: ${rental}`,
-      });
+    if (error) return res.mongoError(error);
     res.json({ message: `Rental with id: ${id} was removed!` });
   });
 };
@@ -70,14 +54,11 @@ exports.updateRental = (req, res) => {
   // Object.assign(foundRental, rentalToUpdate);
 
   Rental.findByIdAndUpdate(id, req.body, { new: true }, (error, rental) => {
-    if (error)
-      return Rental.sendError(res, {
-        status: 422,
-        detail: "Error updating rental",
-      });
+    if (error) return res.mongoError(error);
     res.json({
-      message: `Rental with id: ${id} was updated!`,
-      data: rental,
+      message: `Rental with id: ${id} was updated!, new data: ${JSON.stringify(
+        rental
+      )}`,
     });
   });
 };

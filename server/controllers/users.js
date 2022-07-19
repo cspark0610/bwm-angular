@@ -9,13 +9,13 @@ exports.login = async (req, res) => {
   }
 
   User.findOne({ email }, (err, foundUser) => {
-    if (err) {
-      return res.status(422).json({ message: "something went wrong" });
-    }
+    if (err) return res.mongoError(err);
+
     if (!foundUser) {
-      return res
-        .status(422)
-        .json({ message: `Not found User with email ${email}` });
+      return res.sendApiError({
+        title: "User not found",
+        detail: "User with email provided was not found",
+      });
     }
     if (foundUser.hasSamePassword(password)) {
       const token = jwt.sign(
@@ -28,7 +28,10 @@ exports.login = async (req, res) => {
       );
       return res.status(200).json({ token });
     }
-    return res.status(422).json({ message: "wrong password" });
+    return res.sendApiError({
+      title: "Invalid password",
+      detail: "Invalid password",
+    });
   });
 };
 
@@ -54,20 +57,20 @@ exports.register = (req, res) => {
 
   User.findOne({ email }, (err, existingUser) => {
     if (err) {
-      return res.status(422).json({ message: "undefined error" });
+      return res.mongoError(err);
     }
     if (existingUser) {
-      return res
-        .status(422)
-        .json({ message: "Email is in use, user already exists" });
+      return res.sendApiError({
+        title: "User already exists",
+        detail: "User with email provided already exists",
+      });
     }
 
     User.create({ username, email, password }, (err, user) => {
-      if (err) {
-        return res.status(422).json({ message: "undefined error" });
-      }
+      if (err) return res.mongoError(err);
+
       return res.json({
-        message: `User created successfully ${JSON.stringify(user)}`,
+        message: `User created successfully with id: ${user._id}`,
       });
     });
   });

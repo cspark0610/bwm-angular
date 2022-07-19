@@ -8,6 +8,8 @@ const userRoutes = require("./routes/users");
 // mongo Connection config
 const mongoose = require("mongoose");
 const config = require("./config/dev");
+const { onlyAuthUser } = require("./middlewares/auth");
+const { provideErrorHandler } = require("./middlewares/handle-errors");
 
 // connect to mongo
 mongoose.connect(
@@ -17,8 +19,17 @@ mongoose.connect(
     console.log("Connected to MongoDB");
   }
 );
-// json middleware
+
+// middlewares
 app.use(bodyParser.json());
+app.use(provideErrorHandler);
+
+///// protected routes /////
+
+app.get("/api/v1/secret", onlyAuthUser, (req, res) => {
+  const user = res.locals.user;
+  return res.json({ message: `Super secret message to: ${user.username}` });
+});
 
 // Api Routes
 app.use("/api/v1/rentals", rentalRoutes);
