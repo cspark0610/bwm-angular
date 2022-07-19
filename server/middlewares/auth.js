@@ -1,6 +1,8 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const config = require("../config/dev");
+const mongoose = require("mongoose");
+mongoose.Promise = require("bluebird");
 
 function parseToken(token) {
   try {
@@ -22,28 +24,24 @@ function notAuthorized(res) {
   });
 }
 
-exports.onlyAuthUser = (req, res, next) => {
+exports.onlyAuthUser = async (req, res, next) => {
   const token = req.headers.authorization;
 
-  if (token) {
-    const { decodedToken, error } = parseToken(token);
-    if (error) {
-      return res.status(422).json({ error });
-    }
+  if (!token) return notAuthorized(res);
+  const { decodedToken, error } = parseToken(token);
+  if (error) return res.status(401).json({ error });
 
-    User.findById(decodedToken.sub, (error, foundUser) => {
-      if (error) {
-        return res.status(422).json({
-          message: "Not found user with id: " + decodedToken.sub,
-        });
-      }
-      if (!foundUser) {
-        return notAuthorized(res);
-      }
-
-      res.locals.user = foundUser;
-      next();
+  const foundUser = await User.findById(decodedToken.sub).exec();
+  if (!foundUser) {
+    return res.status(422).json({
+      message: "Not found user with id: " + decodedToken.sub,
     });
   }
-  return notAuthorized(res);
+  res.locals.user = foundUser;
+  next();
 };
+
+/*
+
+
+*/

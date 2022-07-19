@@ -2,9 +2,10 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 4001;
-// require routes
+// routes
 const rentalRoutes = require("./routes/rentals");
 const userRoutes = require("./routes/users");
+const bookingRoutes = require("./routes/bookings");
 // mongo Connection config
 const mongoose = require("mongoose");
 const config = require("./config/dev");
@@ -34,6 +35,7 @@ app.get("/api/v1/secret", onlyAuthUser, (req, res) => {
 // Api Routes
 app.use("/api/v1/rentals", rentalRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/bookings", bookingRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { RegisterForm } from '../shared/register-form.model';
+import { AuthService } from '../shared/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bwm-register',
@@ -8,10 +10,11 @@ import { RegisterForm } from '../shared/register-form.model';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
+  error = '';
   registerFormData: RegisterForm;
   emailPattern =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  constructor() {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.registerFormData = new RegisterForm();
@@ -19,7 +22,14 @@ export class RegisterComponent implements OnInit {
 
   register(form: NgForm) {
     if (form.invalid) return;
-    console.log(form);
+    this.authService.register(this.registerFormData).subscribe({
+      error: (err) => {
+        this.error = err;
+      },
+      complete: () => {
+        this.router.navigate(['/login']);
+      },
+    });
   }
 
   validateInputs(form: NgForm) {

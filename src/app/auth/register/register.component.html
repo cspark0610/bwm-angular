@@ -130,12 +130,10 @@
             Submit
           </button>
         </form>
-        <!-- {{ diagnostic }} -->
-        <!-- <div class="alert alert-danger">
-          <p *ngFor="let error of errors">
-            {{error.detail}}
-          </p>
-        </div> -->
+        <!-- {{ diagnostic }} *ngIf="error"-->
+        <div class="alert alert-danger">
+          <p>{{ error }}</p>
+        </div>
       </div>
       <div class="col-md-6 ml-auto">
         <div class="image-container">

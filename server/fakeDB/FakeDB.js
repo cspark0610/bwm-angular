@@ -5,15 +5,18 @@ const User = require("../models/user");
 
 class FakeDB {
   async clean() {
-    return Promise.all([Rental.deleteMany({}), User.deleteMany({})]);
+    await Rental.deleteMany({});
+    await User.deleteMany({});
   }
 
   async addData() {
-    return Promise.all([Rental.create(rentals), User.create(users)]);
+    await Rental.create(rentals);
+    await User.create(users);
   }
 
   async populate() {
-    return Promise.all([this.clean(), this.addData()]);
+    await this.clean();
+    await this.addData();
   }
 }
 
