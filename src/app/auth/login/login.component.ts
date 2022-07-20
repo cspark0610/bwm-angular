@@ -81,7 +81,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.error = err;
       },
       complete: () => {
-        this.router.navigate(['/rentals']);
+        if (this.authService.redirectUrl) {
+          this.router.navigate([this.authService.redirectUrl]);
+          this.authService.redirectUrl = '';
+        } else {
+          this.router.navigate(['/rentals']);
+        }
       },
     });
   }

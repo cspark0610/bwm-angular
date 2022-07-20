@@ -18,6 +18,8 @@ import {
 // Services
 import { RentalService } from './shared/rental.service';
 import { BwmNgForDirective } from '../shared/directives/custom.directive';
+import { RentalSecretComponent } from './rental-secret/rental-secret.component';
+import { AuthGuard } from '../auth/shared/auth.guard';
 
 const routes: Routes = [
   {
@@ -25,6 +27,12 @@ const routes: Routes = [
     component: RentalComponent,
     children: [
       { path: '', component: RentalListingComponent },
+      // fijarse el orden de los paths !!
+      {
+        path: 'secret',
+        component: RentalSecretComponent,
+        canActivate: [AuthGuard],
+      },
       { path: ':rentalId', component: RentalDetailComponent },
     ],
   },
@@ -41,6 +49,7 @@ const routes: Routes = [
     HighlightDirective,
     BwmNgIfDirective,
     BwmNgForDirective,
+    RentalSecretComponent,
   ],
   providers: [RentalService],
   exports: [],
