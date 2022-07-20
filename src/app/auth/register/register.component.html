@@ -131,8 +131,8 @@
           </button>
         </form>
         <!-- {{ diagnostic }} *ngIf="error"-->
-        <div class="alert alert-danger">
-          <p>{{ error }}</p>
+        <div *ngIf="error && error.detail" class="alert alert-danger">
+          <p>{{ error.detail }}</p>
         </div>
       </div>
       <div class="col-md-6 ml-auto">

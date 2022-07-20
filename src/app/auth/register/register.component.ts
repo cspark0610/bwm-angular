@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  error = '';
+  error: { title: string; detail: string };
   registerFormData: RegisterForm;
   emailPattern =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -22,12 +22,16 @@ export class RegisterComponent implements OnInit {
 
   register(form: NgForm) {
     if (form.invalid) return;
+
     this.authService.register(this.registerFormData).subscribe({
-      error: (err) => {
-        this.error = err;
-      },
+      error: (err) => (this.error = err),
       complete: () => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login'], {
+          queryParams: {
+            notifyMessage: 'You have successfully registered',
+          },
+          // this will the generate: localhost:4200/login?notifyMessage=you%20have%20successfully%20registered in the url when redirecting
+        });
       },
     });
   }

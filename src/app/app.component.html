@@ -1,4 +1,9 @@
-<bwm-header> </bwm-header>
+<bwm-header
+  [isAuthenticated]="authService.isAuthenticated"
+  [username]="authService.username"
+  [logout]="authService.logout"
+>
+</bwm-header>
 
 <!-- <div class="app-container">
   <button (click)="incrementCounter($event, 1)">Increment</button>

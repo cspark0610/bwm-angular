@@ -24,6 +24,7 @@ Content-Type: application/json
   "numOfRooms": 3,
   "description": "Very nice apartment in center of the city.",
   "dailyPrice": 11,
+  "owner": "62d706d609241873ae4195fb",
   "shared": false, 
   "createdAt": "2021-05-06"
 }
@@ -58,10 +59,6 @@ Content-Type: application/json
   "password": "testtest"
 }
 
-# {
-#   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmQ1YWNjYmE3MjQ0NzhkMDk1YTNmMWIiLCJ1c2VybmFtZSI6Ik1hdGlhcyIsImlhdCI6MTY1ODE3MTg0MiwiZXhwIjoxNjU4MjU4MjQyfQ.BLNpiEqlkGmqwV4eJ6MbcMM94qGxYYzVr3oVnfpdiHM"
-# }
-
 ###
 POST {{endpoint}}/users/register
 Content-Type: application/json
@@ -78,7 +75,7 @@ GET {{endpoint}}/secret
 Authorization: Bearer {{token}}
 
 ### BOOKINGS
-
+### create booking endpoint
 POST {{endpoint}}/bookings
 Content-Type: application/json
 Authorization: Bearer {{token}}

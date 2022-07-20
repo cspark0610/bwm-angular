@@ -5,9 +5,9 @@
         <h1>Login</h1>
         <!-- reactive approach using ReactiveFormsModule in app.module -->
 
-        <!-- <div *ngIf="notifyMessage" class="alert alert-success">
-          Some message
-        </div> -->
+        <div *ngIf="notifyMessage" class="alert alert-success">
+          {{ notifyMessage }}
+        </div>
 
         <!-- aca en el tag form tengo que hacer un prop biding, y en cada input tag adjuntar un formControlName -->
         <form [formGroup]="loginForm">
@@ -55,11 +55,9 @@
           </button>
         </form>
 
-        <!-- <div *ngIf="errors.length > 0" class="alert alert-danger">
-          <p *ngFor="let error of errors">
-            {{error.detail}}
-          </p>
-        </div> -->
+        <div *ngIf="error && error.detail" class="alert alert-danger">
+          <p>{{ error.detail }}</p>
+        </div>
       </div>
       <div class="col-md-6 ml-auto">
         <div class="image-container">

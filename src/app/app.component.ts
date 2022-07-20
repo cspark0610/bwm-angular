@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 //import { AppDecorator } from './decorators';
+import { AuthService } from './auth/shared/auth.service';
 
 //@AppDecorator({ message: 'Hello world!!!' })
 @Component({
@@ -7,13 +9,27 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  public counter = 0;
+export class AppComponent implements OnInit {
+  authService: AuthService;
+  constructor(authService: AuthService, private router: Router) {
+    this.authService = authService;
+  }
 
-  public incrementCounter(event: any, incrementor: number): void {
-    this.counter += incrementor;
+  ngOnInit() {
+    return this.authService.checkAuthenticationStatus();
   }
-  public decrementCounter(event: any, decrementor: number): void {
-    this.counter -= decrementor;
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/rentals']);
   }
+
+  // public counter = 0;
+
+  // public incrementCounter(event: any, incrementor: number): void {
+  //   this.counter += incrementor;
+  // }
+  // public decrementCounter(event: any, decrementor: number): void {
+  //   this.counter -= decrementor;
+  // }
 }
