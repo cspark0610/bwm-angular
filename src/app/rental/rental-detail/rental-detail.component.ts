@@ -26,4 +26,9 @@ export class RentalDetailComponent {
         .subscribe((rental) => (this.rental = rental));
     });
   }
+
+  // con el accesor "get" puedo bindear en el html la variable local de map.component.ts "location" con la variable  "rentalLocation" de rental-detail.component.ts
+  get rentalLocation(): string {
+    return `${this.rental.city}, ${this.rental.street}`;
+  }
 }

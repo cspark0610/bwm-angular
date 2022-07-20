@@ -20,6 +20,7 @@ import { RentalService } from './shared/rental.service';
 import { BwmNgForDirective } from '../shared/directives/custom.directive';
 import { RentalSecretComponent } from './rental-secret/rental-secret.component';
 import { AuthGuard } from '../auth/shared/auth.guard';
+import { MapModule } from '../shared/modules/map/map.module';
 
 const routes: Routes = [
   {
@@ -39,7 +40,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), CommonModule, HttpClientModule],
+  imports: [
+    RouterModule.forChild(routes),
+    CommonModule,
+    HttpClientModule,
+    MapModule,
+  ],
   declarations: [
     RentalComponent,
     RentalDetailComponent,
