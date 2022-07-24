@@ -1,17 +1,24 @@
 
 @endpoint=http://localhost:4001/api/v1
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmQ3MDZkNjA5MjQxODczYWU0MTk1ZmEiLCJ1c2VybmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTY1ODI1OTM0NywiZXhwIjoxNjU4MzQ1NzQ3fQ.LgEgMCdLHPBikQztKsLL1jhnIUJcIGI1mzVDqEe7KDY
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmQ3MDZkNjA5MjQxODczYWU0MTk1ZmEiLCJ1c2VybmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTY1ODY3NTExNCwiZXhwIjoxNjU4NzYxNTE0fQ.ih361l5ZfQx4C49nbLV11Mn2rLmD2yd8ZrqOiW8MAyY
+### RENTALS
+### getRentals with req.query
+GET {{endpoint}}/rentals?city=new%20york
 
-
-
-###
+### getRentals
 GET {{endpoint}}/rentals
 
 
-###
+### getUserRentals 
+GET {{endpoint}}/rentals/me
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### getRental
 GET {{endpoint}}/rentals/62d54eabd5175ab4871a11
 
-###
+
+### createRental
 POST {{endpoint}}/rentals
 Content-Type: application/json
 
@@ -29,7 +36,7 @@ Content-Type: application/json
   "createdAt": "2021-05-06"
 }
 
-###
+### updateRental
 PUT {{endpoint}}/rentals/62d480e246cf894816668ffe
 Content-Type: application/json
 
@@ -46,11 +53,12 @@ Content-Type: application/json
   "createdAt": "2021-06-06"
 }
 
-###
+### deleteRental
 DELETE {{endpoint}}/rentals/62d54ae6dbdf2d3a3d5e4fb7
 
 ### USERS ROUTES
 
+### users/login
 POST {{endpoint}}/users/login
 Content-Type: application/json
 
@@ -59,7 +67,7 @@ Content-Type: application/json
   "password": "testtest"
 }
 
-###
+### users/register
 POST {{endpoint}}/users/register
 Content-Type: application/json
 
@@ -75,17 +83,42 @@ GET {{endpoint}}/secret
 Authorization: Bearer {{token}}
 
 ### BOOKINGS
-### create booking endpoint
+
+### getBookings query
+GET {{endpoint}}/bookings?startAt=2022-05-05&endAt=2022-05-08
+
+### getBookings
+GET {{endpoint}}/bookings
+
+
+### getUserBookings
+GET {{endpoint}}/bookings/me
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### CREATE booking endpoint
 POST {{endpoint}}/bookings
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "startAt": "2021-05-06",
-  "endAt": "2021-05-11",
-  "price": 1500,
-  "nights": 5,
+  "startAt": "2022-07-01",
+  "endAt": "2021-07-06",
+  "price": 900,
+  "nights": 3,
   "guests": 2,
-  "user": "62d706d609241873ae4195fb",
-  "rental": "62d706d609241873ae4195f5"
+  "user": { "$oid": "62d706d609241873ae4195fb" },
+  "rental": { "$oid": "62d706d609241873ae4195f4" }
 }
+
+### getRecievedBookings
+GET {{endpoint}}/bookings/recieved
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### deleteBooking
+DELETE {{endpoint}}/bookings/62dd5a7844606700c85560c8
+Content-Type: application/json
+Authorization: Bearer {{token}}

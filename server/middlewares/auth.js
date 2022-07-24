@@ -38,6 +38,7 @@ exports.onlyAuthUser = async (req, res, next) => {
     });
   }
   res.locals.user = foundUser;
+
   next();
 };
 

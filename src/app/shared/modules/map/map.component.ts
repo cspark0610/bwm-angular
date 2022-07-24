@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import tt from '@tomtom-international/web-sdk-maps';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { MapService } from './map.service';
 
 @Component({
@@ -16,7 +17,7 @@ import { MapService } from './map.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class MapComponent implements OnInit, OnDestroy {
-  private readonly API_KEY = 'EnbJILF8heVHveI38Q6OVEZQ4Po4AdqS';
+  private readonly API_KEY = environment.TOMTOM_API_KEY;
   @Input('location') location: string;
   @Input('mapNotifier') mapNotifier: Subject<string>;
   private map: any;

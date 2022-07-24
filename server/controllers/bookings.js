@@ -1,4 +1,5 @@
-const { Booking } = require("../models/booking");
+const Booking = require("../models/booking");
+const Rental = require("../models/rental");
 const mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
 const moment = require("moment");
@@ -62,18 +63,93 @@ exports.createBooking = async (req, res) => {
   return res.json({ message: "booking is Not created" });
 };
 
-exports.getBookings = (req, res) => {
-  return null;
+const createQueryDates = (st, et) => {
+  let queryDates;
+  if (st && et) {
+    queryDates = {
+      date: { $gte: st, $lte: et },
+    };
+  } else if (st && !et) {
+    queryDates = { $expr: { $gte: ["startAt", st] } };
+    // queryDates = { date: { $gte: st } };
+  } else if (!st && et) {
+    // queryDates = { $expr: { $gte: ["endAt", et] } };
+    queryDates = { date: { $lte: et } };
+  } else {
+    queryDates = {};
+  }
+  return queryDates;
 };
 
-exports.getBooking = (req, res) => {
-  return null;
+exports.getBookings = async (req, res) => {
+  const queryDates = createQueryDates(req.query.startAt, req.query.endAt);
+  console.log(queryDates);
+  const bookings = await Booking.find(queryDates).exec();
+  if (!bookings) return res.mongoError(res);
+  return res.json(bookings);
 };
 
-exports.updateBooking = (req, res) => {
-  return null;
+exports.getUserBookings = async (req, res) => {
+  const { user } = res.locals;
+
+  const userBookings = await Booking.find({ user: user._id })
+    //"-password" popular todos los campos menos el del password
+    .populate("user", "-password")
+    .populate("rental")
+    .exec();
+
+  if (!userBookings) return res.mongoError(res);
+  return res.json(userBookings);
 };
 
-exports.deleteBooking = (req, res) => {
-  return null;
+// as rental owner i want to recieve all booking made of my rental place
+exports.getRecievedBookings = async (req, res) => {
+  const { user } = res.locals;
+
+  // 1st find all rentals only select rentlas ID ,where owner is user logged in
+  const rentals = await Rental.find({ owner: user._id }).select("_id").exec();
+  // [ { _id: new ObjectId("62d706d609241873ae4195f4") } ]
+
+  const rentalsIds = rentals.map((rental) => rental._id);
+  // [ new ObjectId("62d706d609241873ae4195f4") ]
+
+  // find me all bookings where rental is included rentalsIds array
+  const bookings = await Booking.find({ rental: { $in: rentalsIds } })
+    .populate("user", "-password")
+    .populate("rental")
+    .exec();
+
+  if (!rentals) return res.mongoError(res);
+  res.json(bookings);
+};
+
+exports.deleteBooking = async (req, res) => {
+  const DAYS_THRESHOLD = 2;
+  const id = req.params.id;
+  const { user } = res.locals;
+
+  const bookingToDelete = await Booking.findById(id).populate("user").exec();
+  if (!bookingToDelete) return res.mongoError(res);
+
+  if (bookingToDelete.user._id.toString() !== user._id.toString()) {
+    return res.sendApiError({
+      title: "Invalid User",
+      detail: "You are not the owner of this booking to delete",
+    });
+  }
+
+  const daysDiffernce = Math.abs(
+    moment().diff(moment(bookingToDelete.startAt), "days")
+  );
+  if (daysDiffernce <= DAYS_THRESHOLD) {
+    return res.sendApiError({
+      title: "Invalid Booking",
+      detail: "You can not delete a booking at least 2 days before it starts",
+    });
+  }
+
+  await Booking.findByIdAndDelete(id);
+  res.json({
+    message: `Booking with id : ${id} was successfully deleted`,
+  });
 };

@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  TOMTOM_API_KEY: 'EnbJILF8heVHveI38Q6OVEZQ4Po4AdqS',
 };
 
 /*

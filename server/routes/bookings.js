@@ -3,8 +3,8 @@ const router = express.Router();
 const {
   createBooking,
   getBookings,
-  getBooking,
-  updateBooking,
+  getUserBookings,
+  getRecievedBookings,
   deleteBooking,
 } = require("../controllers/bookings");
 const {
@@ -13,10 +13,9 @@ const {
 const { onlyAuthUser } = require("../middlewares/auth");
 
 router.get("/", getBookings);
-router.get("/:id", getBooking);
-
+router.get("/me", onlyAuthUser, getUserBookings);
+router.get("/recieved", onlyAuthUser, getRecievedBookings);
 router.post("/", onlyAuthUser, isUserRentalOwner, createBooking);
-router.put("/:id", updateBooking);
-router.delete("/:id", deleteBooking);
+router.delete("/:id", onlyAuthUser, deleteBooking);
 
 module.exports = router;
