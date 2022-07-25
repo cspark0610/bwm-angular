@@ -67,14 +67,12 @@ const createQueryDates = (st, et) => {
   let queryDates;
   if (st && et) {
     queryDates = {
-      date: { $gte: st, $lte: et },
+      $and: [{ startAt: { $gte: st } }, { endAt: { $lte: et } }],
     };
   } else if (st && !et) {
-    queryDates = { $expr: { $gte: ["startAt", st] } };
-    // queryDates = { date: { $gte: st } };
+    queryDates = { startAt: { $gte: st } };
   } else if (!st && et) {
-    // queryDates = { $expr: { $gte: ["endAt", et] } };
-    queryDates = { date: { $lte: et } };
+    queryDates = { endAt: { $lte: et } };
   } else {
     queryDates = {};
   }
@@ -83,7 +81,6 @@ const createQueryDates = (st, et) => {
 
 exports.getBookings = async (req, res) => {
   const queryDates = createQueryDates(req.query.startAt, req.query.endAt);
-  console.log(queryDates);
   const bookings = await Booking.find(queryDates).exec();
   if (!bookings) return res.mongoError(res);
   return res.json(bookings);

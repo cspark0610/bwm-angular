@@ -85,7 +85,7 @@ Authorization: Bearer {{token}}
 ### BOOKINGS
 
 ### getBookings query
-GET {{endpoint}}/bookings?startAt=2022-05-05&endAt=2022-05-08
+GET {{endpoint}}/bookings?startAt=2021-05-05&endAt=2021-05-12
 
 ### getBookings
 GET {{endpoint}}/bookings
@@ -103,8 +103,8 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "startAt": "2022-07-01",
-  "endAt": "2021-07-06",
+  "startAt": 2022-07-01,
+  "endAt": 2021-07-06,
   "price": 900,
   "nights": 3,
   "guests": 2,
