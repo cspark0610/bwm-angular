@@ -3,30 +3,40 @@ const Booking = require("../models/booking");
 const mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
 
-exports.getRentals = (req, res) => {
+exports.getRentals = async (req, res) => {
   const queryCity = req.query.city ? { city: req.query.city } : {};
-  Rental.find(queryCity, (error, rentals) => {
-    if (error) return res.mongoError(error);
-    res.json(rentals);
-  });
+  // Rental.find(queryCity, (error, rentals) => {
+  //   if (error) return res.mongoError(error);
+  //   res.json(rentals);
+  // });
+  try {
+    const rentals = await Rental.find(queryCity).populate("image");
+    return res.json(rentals);
+  } catch (error) {
+    return res.mongoError(error);
+  }
 };
 
 // /api/v1/rentals/me , i expect to receive all rentals of the user
 exports.getUserRentals = async (req, res) => {
   // recordar que seteamos el user en "res.locals.user" en auth middleware
   const { user } = res.locals;
-  const userRentals = await Rental.find({ owner: user._id }).exec();
+  const userRentals = await Rental.find({ owner: user._id })
+    .populate("image")
+    .exec();
   if (!userRentals) return res.mongoError(res);
 
   res.json(userRentals);
 };
 
 exports.getRentalById = (req, res) => {
-  const { id } = req.params;
-  Rental.findById(id, (error, rental) => {
-    if (error) return res.mongoError(error);
-    res.json(rental);
-  });
+  const { rentalId } = req.params;
+  Rental.findById(rentalId)
+    .populate("image")
+    .exec((error, foundRental) => {
+      if (error) return res.mongoError(error);
+      res.json(foundRental);
+    });
 };
 
 exports.createRental = async (req, res) => {

@@ -63,7 +63,7 @@ exports.createBooking = async (req, res) => {
   return res.json({ message: "booking is Not created" });
 };
 
-const createQueryDates = (st, et) => {
+function createQueryDates(st, et) {
   let queryDates;
   if (st && et) {
     queryDates = {
@@ -77,7 +77,7 @@ const createQueryDates = (st, et) => {
     queryDates = {};
   }
   return queryDates;
-};
+}
 
 exports.getBookings = async (req, res) => {
   const queryDates = createQueryDates(req.query.startAt, req.query.endAt);

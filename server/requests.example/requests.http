@@ -1,6 +1,6 @@
 
 @endpoint=http://localhost:4001/api/v1
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmQ3MDZkNjA5MjQxODczYWU0MTk1ZmEiLCJ1c2VybmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTY1ODY3NTExNCwiZXhwIjoxNjU4NzYxNTE0fQ.ih361l5ZfQx4C49nbLV11Mn2rLmD2yd8ZrqOiW8MAyY
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmQ3MDZkNjA5MjQxODczYWU0MTk1ZmEiLCJ1c2VybmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTY1OTQ0OTU2MSwiZXhwIjoxNjU5NTM1OTYxfQ.20opSUgx7bXYDzvsJ9yF6CPJ3h0G4amYeMez10MdzkA
 ### RENTALS
 ### getRentals with req.query
 GET {{endpoint}}/rentals?city=new%20york
@@ -122,3 +122,14 @@ Authorization: Bearer {{token}}
 DELETE {{endpoint}}/bookings/62dd5a7844606700c85560c8
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+### IMAGE-UPLOAD ROUTES
+POST {{endpoint}}/image-upload
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### response example
+# {
+#   "_id": "62e94c9bb17dc5698b5ee4fb",
+#   "url": "https://res.cloudinary.com/dggqfqhaf/image/upload/v1659456667/hsdh435yylfrdmleauvc.png"
+# }

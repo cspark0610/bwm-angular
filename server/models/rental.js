@@ -15,7 +15,8 @@ const rentalSchema = new Schema({
     lowercase: true,
   },
   category: { type: String, required: true, lowercase: true },
-  image: { type: String, required: true },
+  // quiero que la imgen sea una referencia al schema de cloudinaryImage
+  image: { type: Schema.Types.ObjectId, ref: "CloudinaryImage" },
   numOfRooms: { type: Number, required: true },
   description: { type: String, required: true },
   dailyPrice: { type: Number, required: true },
